@@ -6,6 +6,11 @@
 // user can select number of players
 // players abide by basic strategy
 
+// --- I'm going to use a lot of comments in this code ---
+    // Its a personal project and I want to be able to look back at it and laugh
+    // maybe you'll laugh too, but I'm not going to hold my breath.
+
+
 
 // DOM variables and event listeners.
     // DOM stands for Document Object Model, I'm going to use these terms.
@@ -83,7 +88,16 @@ function createDeck() {
     // I like 's' and 'v' because I think they are neat.
     // Because I have a need for a third index im using 'j' 
     // this is because lamborghini uses all of those
-    // and I want a lamborghini, they make neat zoom sounds.
+    // and I want a lamborghini, they make cool zoom sounds.
+        // (everyone wants to be a cool guy, especially Tom Cruise)
+            // Tom Cruise wont let go of the cool guy image as he's aging,
+            // he's like 60 and still trying to be a cool guy
+            // the last mission impossible movie was very cringey
+                // (dont even get me started on the new top gun movie)
+            // I think he's trying to be a cool guy because he's afraid of being old.
+            // He's fighting the inevitable passage of time.
+                //Time is cruel to us all.
+                    //Valar Morghulis
     for (let j = 0; j < numDecks.length; j++) {
         for (let s = 0; s < suits.length; s++) {
             //console.log(suits[s]);
@@ -96,5 +110,18 @@ function createDeck() {
                 deck.push(card);
             }
         }
+    }
+}
+
+//function to shuffle deck
+function shuffleDeck() {
+    // while there are still cards in the deck
+    while (deck.length > 0) {
+        // pick a random card from the deck
+        let randomIndex = Math.floor(Math.random() * deck.length);
+        // add that card to the shuffled deck
+        shuffledDeck.push(deck[randomIndex]);
+        // remove that card from the deck
+        deck.splice(randomIndex, 1);
     }
 }
