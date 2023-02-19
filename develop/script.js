@@ -81,20 +81,20 @@ const dealerHand = {
 function createDeck() {
     // 's' is the suit counter index and 'v' is the value counter index
     // I like 's' and 'v' because I think they are neat.
-    // If i had a need for a third index i would use 'j' 
+    // Because I have a need for a third index im using 'j' 
     // this is because lamborghini uses all of those
     // and I want a lamborghini, they make neat zoom sounds.
-        // I'll make j a function for multiple decks later.
-    for (let s = 0; s < suits.length; s++) {
-        //console.log(suits[s]);
-        for (let v = 0; v < values.length; v++) {
-            //console.log(values[v]);
-            let card = {
-                suit: suits[s],
-                value: values[v]
-            };
-            deck.push(card);
+    for (let j = 0; j < numDecks.length; j++) {
+        for (let s = 0; s < suits.length; s++) {
+            //console.log(suits[s]);
+            for (let v = 0; v < values.length; v++) {
+                //console.log(values[v]);
+                let card = {
+                    suit: suits[s],
+                    value: values[v]
+                };
+                deck.push(card);
+            }
         }
     }
 }
-
