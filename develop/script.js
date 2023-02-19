@@ -7,7 +7,13 @@
 // players abide by basic strategy
 
 
-//DOM variables and event listeners
+// DOM variables and event listeners.
+    // DOM stands for Document Object Model, I'm going to use these terms.
+    // using acronyms is a good way to make yourself sound smart.
+    // even though you'll likely forget what they exact definition is in a few months
+    // and then you'll have to look it up again.
+    // but that's okay, because I'll still retain the concept assigned to DOM in my brain.
+    // Because I'll have been using it for so long.  
 let textArea = document.getElementById('text-area');
 
 const startButton = document.getElementById('start-button');
@@ -21,7 +27,6 @@ standButton.addEventListener('click', stand);
 
 const resetButton = document.getElementById('reset-button');
 resetButton.addEventListener('click', reset);
-
 
 //card constants
 const suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades'];
@@ -43,8 +48,10 @@ let startGame = false,
     numPlayers = 0,
     players = [];
 
-//card objects
+//card objects?
 // Define card objects using object literals
+// might use object orientation later for more complex features
+// havent decided yet
 const playerCard = {
     suit: '',
     value: '' 
@@ -64,3 +71,30 @@ const playerHand = {
   cards: [],
   score: 0
 };
+
+const dealerHand = {
+    cards: [],
+    score: 0
+};  
+
+//function to create deck
+function createDeck() {
+    // 's' is the suit counter index and 'v' is the value counter index
+    // I like 's' and 'v' because I think they are neat.
+    // If i had a need for a third index i would use 'j' 
+    // this is because lamborghini uses all of those
+    // and I want a lamborghini, they make neat zoom sounds.
+        // I'll make j a function for multiple decks later.
+    for (let s = 0; s < suits.length; s++) {
+        //console.log(suits[s]);
+        for (let v = 0; v < values.length; v++) {
+            //console.log(values[v]);
+            let card = {
+                suit: suits[s],
+                value: values[v]
+            };
+            deck.push(card);
+        }
+    }
+}
+
