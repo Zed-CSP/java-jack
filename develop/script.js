@@ -67,11 +67,6 @@ const dealerCard = {
     value: ''
 };
 
-const discardPile = {
-    suit: '',
-    value: '' 
-};
-
 const playerHand = {
   cards: [],
   score: 0
@@ -96,8 +91,8 @@ function createDeck() {
                         // (dont even get me started on the new top gun movie)
                     // I think he's trying to be a cool guy because he's afraid of being old.
                     // He's fighting the inevitable passage of time.
-                    //Time is cruel to us all.
-                    //Valar Morghulis
+                    // Time is cruel to us all.
+                        // Valar Morghulis
     for (let j = 0; j < numDecks.length; j++) {
         for (let s = 0; s < suits.length; s++) {
             //console.log(suits[s]);
@@ -107,7 +102,6 @@ function createDeck() {
                     suit: suits[s],
                     value: values[v]
                     isVisable: false
-
                 };
                 deck.push(card);
             }
@@ -140,4 +134,43 @@ function dealCards() {
         //set first dealer card to be visable
         dealerCards[0].isVisable = true;        
     }
+}
+
+//function to calculate score
+function calculateScore(cards) {
+    // reset score
+    let score = 0;
+    // loop through all cards
+    for (let i = 0; i < cards.length; i++) {
+        // if card is an ace
+        if (cards[i].value === 'Ace') {
+            // if score is less than 11
+            if (score < 11) {
+                // add 11 to score
+                score += 11;
+            } else {
+                // add 1 to score
+                score += 1;
+            }
+        } else if (cards[i].value === 'King' || cards[i].value === 'Queen' || cards[i].value === 'Jack') {
+            // if card is a face card
+            // add 10 to score
+            score += 10;
+        } else {
+            // if card is a number card
+            // add the value of the card to the score
+            score += parseInt(cards[i].value);
+        }
+    }
+    // return score
+    return score;
+}
+
+//function to update scores this function will be called after every card is dealt
+// 
+function updateScores() {
+    // calculate dealer score
+    dealerScore = calculateScore(dealerCards);
+    // calculate player score
+    playerScore = calculateScore(playerCards);
 }
