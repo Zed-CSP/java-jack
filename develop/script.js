@@ -37,11 +37,14 @@ resetButton.addEventListener('click', reset);
 const suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades'];
 const values = ['Ace', 'King', 'Queen', 'Jack', 'Ten', 'Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two'];
 
-//Game variables
+//****************************************************************************************
+//**********************************GAME VARIABLES****************************************
+//****************************************************************************************
 
 let startGame = false,
     handOver = false,
     gameOver = false,
+    dealerTurn = false,
     dealerWon = false,
     playerWon = false,
     playerPush = false,
@@ -82,6 +85,7 @@ const dealerHand = {
 
 //function to create deck
 function createDeck() {
+    console.log("Function: createDeck");
 // 's' is the suit counter index and 'v' is the value counter index
 // I like 's' and 'v' because I think they are neat.
 // Because I have a need for a third index im using 'j' 
@@ -114,6 +118,7 @@ function createDeck() {
 
 //function to shuffle deck and place in shoe
 function shuffleDeck() {
+    console.log("Function: shuffleDeck");
     // while there are still cards in the deck
     while (deck.length > 0) {
         // pick a random card from the deck
@@ -127,6 +132,7 @@ function shuffleDeck() {
 
 //function to deal cards
 function dealCards() {
+    console.log("Function: dealCards");
     // deal two cards to each player
     for (let i = 0; i < 2; i++) {
         playerCards.push(shoe.pop());
@@ -141,6 +147,7 @@ function dealCards() {
 
 //function to calculate score
 function calculateScore(cards) {
+    console.log("Function: calculateScore");
     // reset score
     let score = 0;
     // loop through all cards
@@ -172,6 +179,7 @@ function calculateScore(cards) {
 //function to update scores this function will be called after every card is dealt
 // 
 function updateScores() {
+    console.log("Function: updateScores");
     // calculate dealer score
     dealerScore = calculateScore(dealerCards);
     // calculate player score
@@ -182,6 +190,7 @@ function updateScores() {
 // text display is a little janky, but it works for now
 // plans to display images of cards in the future
 function displayCards() {
+    console.log("Function: displayCards");
     // clear text area
     textArea.innerText = '';
     // display dealer cards
@@ -206,8 +215,34 @@ function displayCards() {
     textArea.innerText += "player score: " + playerScore + "\n";
 }
 
+// ****************************************************
+// *************** GAME CHECK FUNCTIONS ***************
+// ****************************************************
+
+
 //function to check for blackjack
 function checkForBlackjack() {
+    console.log("function: checkForBlackjack");
+    // if dealer has blackjack
+    // will check if dealer has an ace and a face card
+    if (dealerCards[0].value === 'Ace' && dealerCards[1].value === 'King' || dealerCards[1].value === 'Queen' || dealerCards[1].value === 'Jack') {
+        // player loses
+        playerWon = false;
+        // end game
+        handOver = true;
+        console.log("dealer has blackjack");
+    }
+    // if dealer has a face card 'peek' for an ace
+    if (dealerCards[0].value === 'King' || dealerCards[0].value === 'Queen' || dealerCards[0].value === 'Jack') {
+        // if dealer has an ace
+        if (dealerCards[1].value === 'Ace') {
+            // player loses
+            playerWon = false;
+            // end game
+            handOver = true;
+            console.log("dealer has blackjack");
+        }
+    }
     // if player has blackjack
     if (playerScore === 21) {
         // player wins
@@ -220,6 +255,7 @@ function checkForBlackjack() {
 
 //function to check for bust
 function checkForBust() {
+    console.log("function: checkForBust");
     // if player has bust
     if (playerScore > 21) {
         // player loses
@@ -240,10 +276,11 @@ function checkForBust() {
 
 //function to check for 21
 function checkFor21() {
+    console.log("function: checkFor21");
     // if player has 21
     if (playerScore === 21) {
         // player wins
-        playerWon = true;
+        dealerTurn = true;
         // end game
         handOver = true;
         console.log("player has 21");
@@ -266,7 +303,7 @@ function checkForHandWinner() {
         playerWon = true;
         // end game
         handOver = true;
-        console.log("player Win: has more points than dealer");
+        console.log("player Win Condition: has more points than dealer");
     } else if (playerScore === dealerScore) {
         // if player and dealer push
         // player ties
@@ -282,9 +319,31 @@ function checkForHandWinner() {
         handOver = true;
         console.log("player Lose condition: has less points than dealer");
     }
+    console.log("function: checkForHandWinner");
 }
 
+
+
+
 //function to hit
+function hit() {
+    // if game is not over, prevents player from hitting button 
+    if (!handOver) {
+        // deal a card to the player using the pop and push methods nested
+        playerCards.push(shoe.pop());
+        // set card to be visable
+        playerCards[playerCards.length - 1].isVisable = true;
+        // update scores
+        updateScores();
+        // display cards
+        displayCards();
+        // check for bust
+        checkForBust();
+        // check for 21
+        checkFor21();
+    }
+    console.log("player hit");
+}
 
 //function to stand
 
