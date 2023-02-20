@@ -48,6 +48,9 @@ let startGame = false,
     dealerWon = false,
     playerWon = false,
     playerPush = false,
+    playerHasBlackjack = false,
+    dealerHasBlackjack = false,
+    playerHit = false,
     deck = [],
     shoe = [],
     dealerCards = [],
@@ -57,7 +60,7 @@ let startGame = false,
     playerScore = 0,
     numDecks = 0,
     numPlayers = 0,
-    players = [];
+//    players = [];
 
 //card objects?
 // Define card objects using object literals
@@ -65,12 +68,14 @@ let startGame = false,
 // havent decided yet
 const playerCard = {
     suit: '',
-    value: '' 
+    value: '',
+    isVisable: false 
 };
 
 const dealerCard = {
     suit: '',
-    value: ''
+    value: '',
+    isVisable: false
 };
 
 const playerHand = {
@@ -322,13 +327,18 @@ function checkForHandWinner() {
     console.log("function: checkForHandWinner");
 }
 
-
-
+//**********************************************************************
+//********************* GAME UserInput FUNCTIONS ***********************
+//**********************************************************************
 
 //function to hit
 function hit() {
+    console.log("Function: hit");
     // if game is not over, prevents player from hitting button 
     if (!handOver) {
+        console.log("player hit");
+        // set player hit to true
+        playerHit = true;
         // deal a card to the player using the pop and push methods nested
         playerCards.push(shoe.pop());
         // set card to be visable
@@ -342,14 +352,53 @@ function hit() {
         // check for 21
         checkFor21();
     }
-    console.log("player hit");
+    
 }
 
 //function to stand
+function stand() {
+    // if game is not over, prevents player from hitting button
+    if (!handOver) {
+        // set dealer turn to true
+        dealerTurn = true;
+        console.log("player stand");
+    }
 
 //function to double down
+function doubleDown() {
+    // if game is not over, prevents player from hitting button
+    // also prevents player from doubling down if they have already hit
+    if (!handOver && !playerHit) {
+        // deal a card to the player using the pop and push methods nested
+        playerCards.push(shoe.pop());
+        // set card to be visable
+        playerCards[playerCards.length - 1].isVisable = true;
+        // update scores
+        updateScores();
+        // display cards
+        displayCards();
+        // check for bust
+        checkForBust();
+        // check for 21
+        checkFor21();
+        // set dealer turn to true
+        dealerTurn = true;
+        console.log("player double down");
+    }
 
 //function to split
+function split() {
+    // if game is not over, prevents player from hitting button
+    // also prevents player from splitting if they have already hit
+    // player cards must be equal value to split
+
+
+
+
+
+
+
+
 
 //function to check for game winner (beat the house over shoe)
 
