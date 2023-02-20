@@ -40,10 +40,13 @@ const values = ['Ace', 'King', 'Queen', 'Jack', 'Ten', 'Nine', 'Eight', 'Seven',
 //Game variables
 
 let startGame = false,
+    handOver = false,
     gameOver = false,
+    dealerWon = false,
     playerWon = false,
+    playerPush = false,
     deck = [],
-    shuffledDeck = [],
+    shoe = [],
     dealerCards = [],
     playerCards = [],
     discardPile = [],
@@ -109,14 +112,14 @@ function createDeck() {
     }
 }
 
-//function to shuffle deck
+//function to shuffle deck and place in shoe
 function shuffleDeck() {
     // while there are still cards in the deck
     while (deck.length > 0) {
         // pick a random card from the deck
         let randomIndex = Math.floor(Math.random() * deck.length);
         // add that card to the shuffled deck
-        shuffledDeck.push(deck[randomIndex]);
+        shoe.push(deck[randomIndex]);
         // remove that card from the deck
         deck.splice(randomIndex, 1);
     }
@@ -126,11 +129,11 @@ function shuffleDeck() {
 function dealCards() {
     // deal two cards to each player
     for (let i = 0; i < 2; i++) {
-        playerCards.push(shuffledDeck.pop());
+        playerCards.push(shoe.pop());
         //set all player cards to be visable
         playerCards[i].isVisable = true;
         
-        dealerCards.push(shuffledDeck.pop());
+        dealerCards.push(shoe.pop());
         //set first dealer card to be visable
         dealerCards[0].isVisable = true;        
     }
@@ -202,4 +205,98 @@ function displayCards() {
     // display player score
     textArea.innerText += "player score: " + playerScore + "\n";
 }
+
+//function to check for blackjack
+function checkForBlackjack() {
+    // if player has blackjack
+    if (playerScore === 21) {
+        // player wins
+        playerWon = true;
+        // end game
+        handOver = true;
+        console.log("player has blackjack");
+    }
+}
+
+//function to check for bust
+function checkForBust() {
+    // if player has bust
+    if (playerScore > 21) {
+        // player loses
+        playerWon = false;
+        // end game
+        handOver = true;
+        console.log("player has bust");
+    }
+    // if dealer has bust
+    if (dealerScore > 21) {
+        // player wins
+        playerWon = true;
+        // end game
+        handOver = true;
+        console.log("dealer has bust");
+    }
+}
+
+//function to check for 21
+function checkFor21() {
+    // if player has 21
+    if (playerScore === 21) {
+        // player wins
+        playerWon = true;
+        // end game
+        handOver = true;
+        console.log("player has 21");
+    }
+    // if dealer has 21
+    if (dealerScore === 21) {
+        // player loses
+        playerWon = false;
+        // end game
+        handOver = true;
+        console.log("dealer has 21");
+    }
+}
+
+//function to check for winner
+function checkForHandWinner() {
+    // if player has more points than dealer
+    if (playerScore > dealerScore) {
+        // player wins
+        playerWon = true;
+        // end game
+        handOver = true;
+        console.log("player Win: has more points than dealer");
+    } else if (playerScore === dealerScore) {
+        // if player and dealer push
+        // player ties
+        playerPush = true;
+        // end game
+        handOver = true;
+        console.log("player Tie condition: has same points as dealer");
+    } else {
+        // if player has less points than dealer
+        // player loses
+        playerWon = false;
+        // end game
+        handOver = true;
+        console.log("player Lose condition: has less points than dealer");
+    }
+}
+
+//function to hit
+
+//function to stand
+
+//function to double down
+
+//function to split
+
+//function to check for game winner (beat the house over shoe)
+
+//function to check for game tie (rare tied house over shoe)
+
+//function to check for game loser (lost to house over shoe)
+
+//function to check for game over (conditions: shoe empty or out of cash)
 
