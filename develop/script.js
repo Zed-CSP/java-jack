@@ -84,19 +84,19 @@ const dealerHand = {
 
 //function to create deck
 function createDeck() {
-    // 's' is the suit counter index and 'v' is the value counter index
-    // I like 's' and 'v' because I think they are neat.
-    // Because I have a need for a third index im using 'j' 
-    // this is because lamborghini uses all of those
-    // and I want a lamborghini, they make cool zoom sounds.
+// 's' is the suit counter index and 'v' is the value counter index
+// I like 's' and 'v' because I think they are neat.
+// Because I have a need for a third index im using 'j' 
+// this is because lamborghini uses all of those letters as performance badges
+// I want a lamborghini, they make cool zoom sounds.
         // (everyone wants to be a cool guy, especially Tom Cruise)
             // Tom Cruise wont let go of the cool guy image as he's aging,
-            // he's like 60 and still trying to be a cool guy
-            // the last mission impossible movie was very cringey
-                // (dont even get me started on the new top gun movie)
-            // I think he's trying to be a cool guy because he's afraid of being old.
-            // He's fighting the inevitable passage of time.
-                //Time is cruel to us all.
+                // he's like 60 and still trying to be a cool guy
+                    // the last mission impossible movie was very cringey
+                        // (dont even get me started on the new top gun movie)
+                    // I think he's trying to be a cool guy because he's afraid of being old.
+                    // He's fighting the inevitable passage of time.
+                    //Time is cruel to us all.
                     //Valar Morghulis
     for (let j = 0; j < numDecks.length; j++) {
         for (let s = 0; s < suits.length; s++) {
@@ -106,6 +106,8 @@ function createDeck() {
                 let card = {
                     suit: suits[s],
                     value: values[v]
+                    isVisable: false
+
                 };
                 deck.push(card);
             }
@@ -123,5 +125,19 @@ function shuffleDeck() {
         shuffledDeck.push(deck[randomIndex]);
         // remove that card from the deck
         deck.splice(randomIndex, 1);
+    }
+}
+
+//function to deal cards
+function dealCards() {
+    // deal two cards to each player
+    for (let i = 0; i < 2; i++) {
+        playerCards.push(shuffledDeck.pop());
+        //set all player cards to be visable
+        playerCards[i].isVisable = true;
+        
+        dealerCards.push(shuffledDeck.pop());
+        //set first dealer card to be visable
+        dealerCards[0].isVisable = true;        
     }
 }
