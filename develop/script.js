@@ -174,3 +174,32 @@ function updateScores() {
     // calculate player score
     playerScore = calculateScore(playerCards);
 }
+
+//function to display cards
+// text display is a little janky, but it works for now
+// plans to display images of cards in the future
+function displayCards() {
+    // clear text area
+    textArea.innerText = '';
+    // display dealer cards
+    for (let i = 0; i < dealerCards.length; i++) {
+        // if card is visable
+        if (dealerCards[i].isVisable) {
+            // display dealer card and add a new line
+            textArea.innerText += "dealer is showing: " + dealerCards[i].value + " of " + dealerCards[i].suit + "\n";
+        } else {
+            // display dealer card and add a new line
+            textArea.innerText += "dealer is showing: " + "Face Down Card" + "\n";
+        }
+    }
+    // display player cards
+    for (let i = 0; i < playerCards.length; i++) {
+        // display player card and add a new line
+        textArea.innerText += "player is showing: " + playerCards[i].value + " of " + playerCards[i].suit + "\n";
+    }
+    // display dealer score
+    textArea.innerText += "dealer score: " + dealerScore + "\n";
+    // display player score
+    textArea.innerText += "player score: " + playerScore + "\n";
+}
+
