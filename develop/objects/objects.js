@@ -155,5 +155,15 @@ class Game {
         this.player.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the player a card
     }
 
-    
+
+}
+
+export default {
+    Card,
+    Deck,
+    Shoe,
+    Hand,
+    Player,
+    Dealer,
+    Game
 }
