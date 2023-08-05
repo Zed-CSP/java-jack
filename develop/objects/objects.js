@@ -27,21 +27,6 @@ class Deck {
             }
         }
     }
-
-    shuffle() {
-        let currentIndex = this.cards.length;
-        let randomIndex;
-        let temp;
-
-        while (currentIndex != 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            temp = this.cards[currentIndex];
-            this.cards[currentIndex] = this.cards[randomIndex];
-            this.cards[randomIndex] = temp;
-        }
-    }
 }
 
 class Shoe {
@@ -49,14 +34,10 @@ class Shoe {
         this.numberOfDecks = numberOfDecks;
         this.cards = [];
 
-        for (let i = 0; i < this.numberOfDecks; i++) {
-            let deck = new Deck();
-            deck.shuffle();
-            this.cards.push(...deck.cards);
+        for (let i = 0; i < this.numberOfDecks; i++) { // for each deck
+            let deck = new Deck(); // create a new deck
+            deck.shuffle(); // shuffle the deck
+            this.cards.push(...deck.cards); // add every card of the the deck to the shoe
         }
-    }
-
-    deal() {
-        return this.cards.pop();// for non JS people: pop() removes the last element of an array and returns that element
     }
 }
