@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>JavaScript Blackjack Game</title>
+    <title>Blackjack Game</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-  <h1>JavaScript Blackjack Game</h1>
+    <h1>Blackjack</h1>
+    
+    <div class="dealer-area">
+        <h2>Dealer</h2>
+        <div id="dealer-hand" class="hand"></div>
+    </div>
 
-  <canvas id="canvas" width="400" height="400"></canvas>
+    <div class="player-area">
+        <h2>Player</h2>
+        <div id="player-hand" class="hand"></div>
+        <button id="hit-button">Hit</button>
+        <button id="stand-button">Stand</button>
+        <button id="double-button">Double Down</button>
+        <button id="split-button">Split</button>
+        <button id="surrender-button">Surrender</button>
 
-  <button id="startButton">Start Game</button>
+    </div>
 
-  <button id="bet-button">Bet</button>
-  <button id="bet-amount">Bet Amount</button>
-  <button id="Max-bet">Max Bet</button>
-  <button id="Min-bet">Min Bet</button>
-  <button id="deal-button">Deal</button>
+    <div class="messages-area">
+        <h2>Messages</h2>
+        <div id="messages"></div>
+    </div>
 
-  <button id="hit-button">Hit</button>
-  <button id="stand-button">Stand</button>
-  <button id="double-down">Double</button>
-  <button id="split-button">Split</button>
-  <button id="insurance-button">Insurance</button>
-  <button id="surrender-button">Surrender</button>
+    <div class="game-area">
+        <h2>Game Controls</h2>
+        <label for="num-decks">Number of Decks</label>
+        <input id="num-decks" type="number" min="1" max="8" value="1">
+        <button id="new-game-button">New Game</button>
+        <button id="deal-button">Deal</button>
+        <label for="bet-amount">Bet Amount</label>
+        <input id="bet-amount" type="number" min="1" max="500" value="1">
+        <button id="bet-button">Bet</button>
+        <button id="clear-bet-button">Clear Bet</button>
 
+    </div>
 
-
-
-  <button id="reset-button">Reset</button>
-
-  <script src="./develop/script.js"></script>
+    <script src="blackjack.js"></script>
 </body>
 </html>

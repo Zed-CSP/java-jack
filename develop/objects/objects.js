@@ -4,6 +4,7 @@ class Card {
     constructor(suit, value) {
         this.suit = suit;
         this.value = value;
+        this.faceUp = false;
     }
 
     get cardvalue() {
@@ -94,6 +95,7 @@ class Player {
     constructor() {
         this.hands = [];
         this.hands.push(new Hand());
+        this.hands.cards.faceUp = true;
     }
 
     get hand() {
@@ -104,7 +106,7 @@ class Player {
         return this.hand.isBust;
     }
 
-    get isBlackjack() {
+    get hasBlackjack() {
         return this.hand.isBlackjack;
     }
 
@@ -133,11 +135,7 @@ class Dealer extends Player {
     constructor() {
         super();
     }
-
-    get isShowingAce() {
-        return this.hand.cards[0].value == 'Ace';
-    }
-
+    
     get isShowingFace() {
         return this.hand.cards[0].cardvalue == 10 || this.hand.cards[0].value == 'Ace';
     }
@@ -154,8 +152,6 @@ class Game {
         this.player.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the player a card
         this.player.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the player a card
     }
-
-
 }
 
 export default {
