@@ -1,3 +1,5 @@
+import actions from "./actions";
+
 class Card {
     constructor(suit, value) {
         this.suit = suit;
@@ -12,6 +14,10 @@ class Card {
         } else {
             return parseInt(this.value);
         }
+    }
+
+    get cardname() {
+        return this.value + ' of ' + this.suit;
     }
 }
 
@@ -82,4 +88,72 @@ class Hand {
     get isPair() {
         return this.cards[0].value == this.cards[1].value; // if the first card's value is the same as the second card's value
     }
+}
+
+class Player {
+    constructor() {
+        this.hands = [];
+        this.hands.push(new Hand());
+    }
+
+    get hand() {
+        return this.hands[0];
+    }
+
+    get isBust() {
+        return this.hand.isBust;
+    }
+
+    get isBlackjack() {
+        return this.hand.isBlackjack;
+    }
+
+    get isTwentyOne() {
+        return this.hand.isTwentyOne;
+    }
+
+    get isPair() {
+        return this.hand.isPair;
+    }
+
+    get isSoft() {
+        return this.hand.isSoft;
+    }
+
+    get handvalue() {
+        return this.hand.handvalue;
+    }
+
+    get numberOfHands() {
+        return this.hands.length;
+    }
+}
+
+class Dealer extends Player {
+    constructor() {
+        super();
+    }
+
+    get isShowingAce() {
+        return this.hand.cards[0].value == 'Ace';
+    }
+
+    get isShowingFace() {
+        return this.hand.cards[0].cardvalue == 10 || this.hand.cards[0].value == 'Ace';
+    }
+
+}
+
+class Game {
+    constructor(numberOfDecks) {
+        this.shoe = new Shoe(numberOfDecks);
+        this.dealer = new Dealer();
+        this.player = new Player();
+        this.dealer.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the dealer a card
+        this.dealer.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the dealer a card
+        this.player.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the player a card
+        this.player.hands[0].cards.push(actions.dealCard(this.shoe)); // deal the player a card
+    }
+
+    
 }

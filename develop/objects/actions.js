@@ -21,9 +21,11 @@ const actions = {
     hit(hand, shoe) {
         hand.push(this.dealCard(shoe)); // add a card to the hand
         return hand;
-    }
+    },
 
-    
-
-
+    split(hand) {
+        return [hand[0], [hand[1]]]; // split the hand into two hands 
+    },
 };
+
+module.exports = actions;
