@@ -5,9 +5,9 @@ class Card {
     }
 
     get cardvalue() {
-        if (this.value == J || this.value == Q || this.value == K) {
+        if (this.value == 'Jack' || this.value == 'Queen' || this.value == 'King') {
             return 10;
-        } else if (this.value == A) {
+        } else if (this.value == 'Ace') {
             return 11;
         } else {
             return parseInt(this.value);
@@ -18,8 +18,8 @@ class Card {
 class Deck {
     constructor() {
         this.cards = [];
-        this.suits = [C, D, H, S];
-        this.values = [A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K];
+        this.suits = ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+        this.values = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
 
         for (let suit of this.suits) { // for each suit
             for (let value of this.values) { // for each value
@@ -36,8 +36,50 @@ class Shoe {
 
         for (let i = 0; i < this.numberOfDecks; i++) { // for each deck
             let deck = new Deck(); // create a new deck
-            deck.shuffle(); // shuffle the deck
-            this.cards.push(...deck.cards); // add every card of the the deck to the shoe
+            this.cards = this.cards.concat(deck.cards); // add the deck to the shoe
+
         }
+    }
+}
+
+class Hand {
+    constructor() {
+        this.cards = [];
+    }
+
+    get handvalue() {
+        let handvalue = 0;
+        for (let card of this.cards) { // for each card in the hand
+            handvalue += card.cardvalue; // add the card's value to the hand's value
+        }
+        if (handvalue > 21 && this.isSoft) { // if the hand is over 21 and the hand is soft
+            handvalue -= (10 * this.cards.filter(card => card.value == 'Ace').length); // subtract 10 for each ace in the hand (aces are worth 11 or 1
+        }
+        return handvalue;
+    }
+
+    get isSoft() {
+        for (let card of this.cards) {
+            if (card.value == 'Ace') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    get isBust() {
+        return this.handvalue > 21;
+    }
+
+    get isBlackjack() {
+        return this.handvalue == 21 && this.cards.length == 2;
+    }
+
+    get isTwentyOne() {
+        return this.handvalue == 21;
+    }
+
+    get isPair() {
+        return this.cards[0].value == this.cards[1].value; // if the first card's value is the same as the second card's value
     }
 }

@@ -11,12 +11,19 @@ const actions = {
     },
 
     dealCard(shoe) {
-        return shoe.cards.pop(); // for non JS people: pop() removes the last element of an array and returns that element
+        return shoe.cards.pop(); // for non JS people: pop() is a built in method that removes the last element of an array and returns that element
     },
 
     dealHand(shoe) {
         return [this.dealCard(shoe), this.dealCard(shoe)]; // deal two cards
     },
 
+    hit(hand, shoe) {
+        hand.push(this.dealCard(shoe)); // add a card to the hand
+        return hand;
+    }
+
     
+
+
 };
