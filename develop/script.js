@@ -1,5 +1,9 @@
-//This program was an early functionally based mess, I have since refactored it into a more object oriented approach in a private repository.
-//I will be updating this repository with the new code!
+import { Shoe } from './shoe.js';
+import { Player } from './player.js';
+import { Dealer } from './dealer.js';
+import { Hand } from './hand.js';
+import { Card } from './card.js';
+import { Deck } from './deck.js';
 
 // This is a blackjack program
 // planned odds calculator toggle option
@@ -23,10 +27,10 @@ standButton.addEventListener('click', stand);
 const resetButton = document.getElementById('reset-button');
 resetButton.addEventListener('click', reset);
 
-//card constants
-const suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades'];
-const standardValues = ['Ace', 'King', 'Queen', 'Jack', 'Ten', 'Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two'];
-
 //****************************************************************************************
 //**********************************GAME VARIABLES****************************************
 //****************************************************************************************
+
+
+let game = {
+    shoe: new Shoe(1),
