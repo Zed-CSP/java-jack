@@ -1,3 +1,6 @@
+//This program was an early functionally based mess, I have since refactored it into a more object oriented approach in a private repository.
+//I will be updating this repository with the new code!
+
 // This is a blackjack program
 // planned odds calculator toggle option
 // planned card counting toggle option
@@ -6,19 +9,6 @@
 // user can select number of players
 // players abide by basic strategy
 
-// --- I'm going to use a lot of comments in this code ---
-    // Its a personal project and I want to be able to look back at it and laugh
-    // maybe you'll laugh too, but I'm not going to hold my breath.
-
-
-
-// DOM variables and event listeners.
-    // DOM stands for Document Object Model, I'm going to use these terms.
-    // using acronyms is a good way to make yourself sound smart.
-    // even though you'll likely forget what they exact definition is in a few months
-    // and then you'll have to look it up again.
-    // but that's okay, because I'll still retain the concept assigned to DOM in my brain.
-    // Because I'll have been using it for so long.  
 let textArea = document.getElementById('text-area');
 
 const startButton = document.getElementById('start-button');
@@ -35,55 +25,76 @@ resetButton.addEventListener('click', reset);
 
 //card constants
 const suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades'];
-const values = ['Ace', 'King', 'Queen', 'Jack', 'Ten', 'Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two'];
+const standardValues = ['Ace', 'King', 'Queen', 'Jack', 'Ten', 'Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two'];
 
 //****************************************************************************************
 //**********************************GAME VARIABLES****************************************
 //****************************************************************************************
 
-let startGame = false,
-    handOver = false,
-    gameOver = false,
-    dealerTurn = false,
-    dealerWon = false,
-    playerWon = false,
-    playerPush = false,
-    playerHasBlackjack = false,
-    dealerHasBlackjack = false,
-    playerHit = false,
-    deck = [],
-    shoe = [],
-    dealerCards = [],
-    playerCards = [],
-    discardPile = [],
-    dealerScore = 0,
+let startGame = false,  //serves as a switch to determine if the game has started (new shoe)
+    handOver = false,  //serves as a switch to determine if the hand is over
+    gameOver = false,   //serves as a switch to determine if the game is over (shoe is empty)
+    playerTurn = false,  //serves as a switch to determine if it is the players turn
+    dealerTurn = false,  //serves as a switch to determine if it is the dealers turn
+    dealerWon = false,  //serves as a switch to determine if the dealer won
+    playerWon = false,  //serves as a switch to determine if the player won
+    playerPush = false,  //serves as a switch to determine if the player and dealer pushed
+    playerHasBlackjack = false,  //serves as a switch to determine if the player has blackjack
+    dealerHasBlackjack = false,  //serves as a switch to determine if the dealer has blackjack
+    playerHit = false,  //serves as a switch to determine if the player has hit on their turn (double down&split functions)
+    playerBust = false,  //serves as a switch to determine if the player has busted
+    dealerBust = false,  //serves as a switch to determine if the dealer has busted
+    playerStand = false,  //serves as a switch to determine if the player has stood
+    dealerStand = false,  //serves as a switch to determine if the dealer has stood
+    playerDoubleDown = false,  //serves as a switch to determine if the player has doubled down
+    playerSplit = false,  //serves as a switch to determine if the player has split
+    playerInsurance = false,  //serves as a switch to determine if the player has taken insurance
+    playerSurrender = false,  //serves as a switch to determine if the player has surrendered
+    playerCanSplit = false,  //serves as a switch to determine if the player can split
+    playerCanDoubleDown = false,  //serves as a switch to determine if the player can double down
+    playerCanSurrender = false,  //serves as a switch to determine if the player can surrender
+    
+    deck = [], //array to hold the standard deck for shoe building
+    shoe = [], //array to hold the shoe
+    dealerCards = [], //array to hold the dealers cards
+    playerCards = [], //array to hold the players cards
+    discardPile = [], //array to hold the discard pile
+
+    dealerScore = 0, 
     playerScore = 0,
-    numDecks = 0,
-    numPlayers = 0,
+    numDecks = 0,  //variable to hold the number of decks to be used in the game
+//    numPlayers = 0,
 //    players = [];
 
 //card objects?
 // Define card objects using object literals
 // might use object orientation later for more complex features
 // havent decided yet
+
 const playerCard = {
+    //object properties of individual cards nested in player object
     suit: '',
     value: '',
     isVisable: false 
 };
 
 const dealerCard = {
+    //see playerCard object for comments
     suit: '',
     value: '',
     isVisable: false
 };
 
 const playerHand = {
+    //object properties of player hand
+    //playerHand is an array of card objects
   cards: [],
+    //playerHand will hold current score of hand
   score: 0
 };
 
 const dealerHand = {
+    //see playerHand object for comments
     cards: [],
     score: 0
 };  
@@ -108,11 +119,11 @@ function createDeck() {
     for (let j = 0; j < numDecks.length; j++) {
         for (let s = 0; s < suits.length; s++) {
             //console.log(suits[s]);
-            for (let v = 0; v < values.length; v++) {
-                //console.log(values[v]);
+            for (let v = 0; v < standardValues.length; v++) {
+                //console.log(standardValues[v]);
                 let card = {
                     suit: suits[s],
-                    value: values[v]
+                    value: standardValues[v]
                     isVisable: false
                 };
                 deck.push(card);
@@ -391,6 +402,8 @@ function split() {
     // if game is not over, prevents player from hitting button
     // also prevents player from splitting if they have already hit
     // player cards must be equal value to split
+    if (!handOver && !playerHit && playerCards[0].value === playerCards[1].value) {
+
 
 
 
