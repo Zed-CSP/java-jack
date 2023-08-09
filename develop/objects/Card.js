@@ -1,5 +1,3 @@
-
-
 class Card {
     constructor(suit, value) {
         this.suit = suit;
@@ -7,17 +5,21 @@ class Card {
         this.faceUp = false;
     }
 
-    get cardvalue() {
-        if (this.value == 'Jack' || this.value == 'Queen' || this.value == 'King') {
+    flip() {
+        this.faceUp = !this.faceUp;
+    }
+
+    get cardValue() {
+        if (['Jack', 'Queen', 'King'].includes(this.value)) {
             return 10;
         } else if (this.value == 'Ace') {
-            return 11;
+            return 11;  // You'll need more logic in the Hand class to deal with Aces
         } else {
             return parseInt(this.value);
         }
     }
 
-    get cardname() {
+    get cardName() {
         return this.value + ' of ' + this.suit;
     }
 }
