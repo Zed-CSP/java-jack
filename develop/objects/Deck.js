@@ -21,7 +21,7 @@ class Deck {
     shuffle() {
         for (let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // Swap cards
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // Swap cards, this kind of shuffle is called the "Fisher-Yates" shuffle, Its code is aesthetically pleasing and simple, but it's not the most efficient and 'random' shuffle. It's good enough for my purposes.
         }
     }
 
