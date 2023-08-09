@@ -1,17 +1,28 @@
 import Deck from './Deck.js';
-import Card from './Card.js';
 
-
-class Shoe {
-    constructor(numberOfDecks) {
+class Shoe extends Deck {
+    constructor(numberOfDecks = 1) {
+        super(); // Call the constructor of the Deck class
         this.numberOfDecks = numberOfDecks;
-        this.cards = [];
+        this.populateShoe();
+    }
 
-        for (let i = 0; i < this.numberOfDecks; i++) { // for each deck
-            let deck = new Deck(); // create a new deck
-            this.cards = this.cards.concat(deck.cards); // add the deck to the shoe
+    populateShoe() {
+        this.cards.length = 0;  // Empty the current cards
 
+        for (let i = 0; i < this.numberOfDecks; i++) {
+            let deck = new Deck();
+            this.cards = this.cards.concat(deck.cards);
         }
+
+        this.shuffle();
+    }
+
+    // Since Shoe extends Deck, it inherits the shuffle, deal, and reset methods.
+    // However, override needed to reset method.
+    // this ensures the Shoe is repopulated with the right number of decks.
+    reset() {
+        this.populateShoe();
     }
 }
 
