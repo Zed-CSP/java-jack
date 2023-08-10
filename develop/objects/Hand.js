@@ -41,6 +41,12 @@ class Hand {
     get isPair() {
         return this.cards[0].value == this.cards[1].value; // if the first card's value is the same as the second card's value
     }
+
+    get canSplit() {
+        return this.cards.length === 2 && this.isPair;
+    }
+    
+
 }
 
 export default Hand;

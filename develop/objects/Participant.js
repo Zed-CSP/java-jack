@@ -5,22 +5,37 @@ class Participant {
         this.hands = [new Hand()];
     }
 
-    get hand() {
+    get primaryHand() {
         return this.hands[0];
     }
 
     get isBust() {
-        return this.hand.isBust;
+        return this.primaryHand.isBust;
     }
 
     get hasBlackjack() {
-        return this.hand.isBlackjack;
+        return this.primaryHand.isBlackjack;
     }
 
-    get handvalue() {
-        return this.hand.handvalue;
+    get isTwentyOne() {
+        return this.primaryHand.isTwentyOne;
+    }
+
+    get isPair() {
+        return this.primaryHand.isPair;
+    }
+
+    get isSoft() {
+        return this.primaryHand.isSoft;
+    }
+
+    get handValue() {
+        return this.primaryHand.handValue;
+    }
+
+    get numberOfHands() {
+        return this.hands.length;
     }
 }
 
-
-export default Participant;
+export default Participant

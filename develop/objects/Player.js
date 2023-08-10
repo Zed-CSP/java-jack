@@ -1,46 +1,15 @@
-import Hand from './Hand.js';  // Assuming default export
+import Hand from './Hand.js';
+import Participant from './Participant.js'; // Assuming you've created this class
 
-class Player {
-    constructor() {
-        this.hands = [new Hand()];
+class Player extends Participant {
+    constructor(initialBankroll = 1000) { // Providing a default initial bankroll for simplification
+        super();  // Call the constructor of the Participant class
         // Ensure the first card of the first hand is face-up
-        if (this.hands[0].cards.length > 0) {
-            this.hands[0].cards[0].faceUp = true;
+        if (this.primaryHand.cards.length > 0) {
+            this.primaryHand.cards[0].faceUp = true;
         }
         this.bankroll = initialBankroll; // Player's total money
         this.currentBet = 0; // The amount the player has bet for the current round
-    }
-
-    get primaryHand() {
-        return this.hands[0];
-    }
-
-    get isBust() {
-        return this.primaryHand.isBust;
-    }
-
-    get hasBlackjack() {
-        return this.primaryHand.isBlackjack;
-    }
-
-    get isTwentyOne() {
-        return this.primaryHand.isTwentyOne;
-    }
-
-    get isPair() {
-        return this.primaryHand.isPair;
-    }
-
-    get isSoft() {
-        return this.primaryHand.isSoft;
-    }
-
-    get handValue() {
-        return this.primaryHand.handValue;
-    }
-
-    get numberOfHands() {
-        return this.hands.length;
     }
 
     placeBet(amount) {
@@ -58,8 +27,8 @@ class Player {
     }
 
     loseBet() {
-        // Player loses the amount they bet. No need to subtract from bankroll, it was already deducted when the bet was placed.
-        this.currentBet = 0; // Reset the current bet
+        // Player loses their bet. Since it was already deducted when the bet was placed, just reset the bet.
+        this.currentBet = 0;
     }
 
     push() {
@@ -84,7 +53,7 @@ class Player {
     }
 
     splitHand() {
-        if (this.canSplit()) {
+        if (this.primaryHand.canSplit) {
             const cardToMove = this.primaryHand.cards.pop(); // Take the last card from the primary hand
             const newHand = new Hand([cardToMove]);
             this.hands.push(newHand);
