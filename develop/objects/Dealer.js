@@ -1,6 +1,6 @@
-import Player from './Player.js';
+import Participant from './Participant.js';
 
-class Dealer extends Player {
+class Dealer extends Participant {
     constructor() {
         super();
     }
